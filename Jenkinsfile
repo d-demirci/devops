@@ -27,6 +27,7 @@ pipeline {
             parallel(
                dependency: {
                   sh '''
+                     rm "$PWD"/frontend/package-lock.json
                      docker run --env SECURE_LOG_LEVEL=${SECURE_LOG_LEVEL} -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
 
 
@@ -36,6 +37,7 @@ pipeline {
                },
                sast: {
                   sh '''
+                     rm "$PWD"/frontend/package-lock.json
                      docker run --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/sast:latest /app/bin/run /code
 
 
