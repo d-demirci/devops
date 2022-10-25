@@ -28,7 +28,8 @@ pipeline {
                dependency: {
                   sh '''
                      rm "$PWD"/frontend/package-lock.json
-                     docker run --env SECURE_LOG_LEVEL=${SECURE_LOG_LEVEL} -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
+                     docker run -v "$PWD":/src -v /var/run/docker.sock:/var/run/docker.sock returntocorp/semgrep-agent:v1 --config auto
+                     // docker run -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
 
 
                      echo "Scan Report Creted Successfully, " 
