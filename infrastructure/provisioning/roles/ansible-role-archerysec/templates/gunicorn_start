@@ -46,10 +46,10 @@ export DB_HOST='{{ db_host }}'
 export DJANGO_DEBUG=0
 
 # migrate database
-python3 '{{ app_dir }}'/manage.py migrate
+'{{ app_dir }}'/venv/bin/python '{{ app_dir }}'/manage.py migrate
 
 # Collect static files
-python3 '{{ app_dir }}'/manage.py collectstatic
+'{{ app_dir }}'/venv/bin/python '{{ app_dir }}'/manage.py collectstatic
 
 ### Start Gunicorn
 
