@@ -37,10 +37,10 @@ pipeline {
                },
                sast: {
                   sh '''
-                     docker run --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/sast:latest /app/bin/run /code
+                     docker run --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/analyzers/nodejs-scan-sast /app/bin/run /code
 
 
-                     echo "Scan Report Creted Successfully, " 
+                     echo "Scan Report Created Successfully, " 
                      // Scan Id:" $SCAN_ID
                   '''
                }
