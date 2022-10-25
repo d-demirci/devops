@@ -29,19 +29,6 @@ pipeline {
                   sh '''
                      docker run --env SECURE_LOG_LEVEL=${SECURE_LOG_LEVEL} -v "$PWD"/backend:/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
 
-                     // # create project in archerysec
-
-                     // DATE=`date +%Y-%m-%d`
-
-                     // export PROJECT_ID=`archerysec-cli -s ${ARCHERYSEC_HOST} -u ${ARCHERYSEC_USER} -p ${ARCHERYSEC_PASS} --createproject \
-                     // --project_name=devsecops --project_disc="devsecops project" --project_start=${DATE} \
-                     // --project_end=${DATE} --project_owner=dev | tail -n1 | jq '.project_id' | sed -e 's/^"//' -e 's/"$//'`
-
-                     // # Upload Scan report in archerysec
-
-                     // export SCAN_ID=`archerysec-cli -s ${ARCHERYSEC_HOST} -u ${ARCHERYSEC_USER} -p ${ARCHERYSEC_PASS} \
-                     // --upload --file_type=JSON --file=${WORKSPACE}/gl-dependency-scanning-report.json --TARGET=${GIT_COMMIT} \
-                     // --scanner=gitlabsca --project_id=''$PROJECT_ID'' | tail -n1 | jq '.scan_id' | sed -e 's/^"//' -e 's/"$//'`
 
                      echo "Scan Report Creted Successfully, " 
                      // Scan Id:" $SCAN_ID
@@ -52,19 +39,6 @@ pipeline {
                   sh '''
                     docker run --volume "$PWD"/backend:/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/sast:latest /app/bin/run /code
 
-                     # create project in archerysec
-
-                     // DATE=`date +%Y-%m-%d`
-
-                     // export PROJECT_ID=`archerysec-cli -s ${ARCHERYSEC_HOST} -u ${ARCHERYSEC_USER} -p ${ARCHERYSEC_PASS} --createproject \
-                     // --project_name=devsecops --project_disc="devsecops project" --project_start=${DATE} \
-                     // --project_end=${DATE} --project_owner=dev | tail -n1 | jq '.project_id' | sed -e 's/^"//' -e 's/"$//'`
-
-                     // # Upload Scan report in archerysec
-
-                     // export SCAN_ID=`archerysec-cli -s ${ARCHERYSEC_HOST} -u ${ARCHERYSEC_USER} -p ${ARCHERYSEC_PASS} \
-                     // --upload --file_type=JSON --file=${WORKSPACE}/gl-sast-report.json --TARGET=${GIT_COMMIT} \
-                     // --scanner=gitlabsast --project_id=''$PROJECT_ID'' | tail -n1 | jq '.scan_id' | sed -e 's/^"//' -e 's/"$//'`
 
                      echo "Scan Report Created Successfully"
                      // , Scan Id:" $SCAN_ID
@@ -190,17 +164,7 @@ pipeline {
                      --volume $(pwd)/wrk:/zap/wrk:rw \
                      registry.gitlab.com/gitlab-org/security-products/dast:latest /analyze -t http://staging.devops -x report.xml
 
-               //    DATE=`date +%Y-%m-%d`
-
-               //   export PROJECT_ID=`archerysec-cli -s ${ARCHERYSEC_HOST} -u ${ARCHERYSEC_USER} -p ${ARCHERYSEC_PASS} --createproject \
-               //   --project_name=devsecops --project_disc="devsecops project" --project_start=${DATE} \
-               //   --project_end=${DATE} --project_owner=dev | tail -n1 | jq '.project_id' | sed -e 's/^"//' -e 's/"$//'`
-
-               //   # Upload Scan report in archerysec
-
-               //   export SCAN_ID=`archerysec-cli -s ${ARCHERYSEC_HOST} -u ${ARCHERYSEC_USER} -p ${ARCHERYSEC_PASS} \
-               //   --upload --file_type=XML --file=${WORKSPACE}/wrk/report.xml --TARGET=${GIT_COMMIT} \
-               //   --scanner=zap_scan --project_id=''$PROJECT_ID'' | tail -n1 | jq '.scan_id' | sed -e 's/^"//' -e 's/"$//'`
+   
 
                  echo "Scan Report Created"
                '''
