@@ -6,11 +6,11 @@ project_name: archerysec
 app_name: archerysec
 
 # the base path to install to. You should not need to change this.
-install_root: /home/archerysec/app
+install_root: /home/vagrant/app
 
 # Deployer User and Groups
-deployer_user: archerysec
-deployer_group: archerysec
+deployer_user: vagrant
+deployer_group: vagrant
 
 # App Directory
 app_dir: "{{ install_root }}"
@@ -34,7 +34,7 @@ wsgi_module: archerysec.wsgi
 pythonpath: "{{ install_root }}"
 
 # the git repository URL for the project
-project_repo: https://github.com/archerysec/archerysec/archive/v{{archerysec_version}}.tar.gz
+project_repo: https://github.com/d-demirci/archerysec.git
 
 # Application Dependencies Setup
 venv_dir: "{{ install_root }}/venv"
