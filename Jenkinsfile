@@ -28,8 +28,8 @@ pipeline {
                dependency: {
                   sh '''
                      rm "$PWD"/frontend/package-lock.json
-                     docker run -v "$PWD":/src -v /var/run/docker.sock:/var/run/docker.sock returntocorp/semgrep-agent:v1 --config auto
-                     // docker run -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
+                     
+                     docker run -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
 
 
                      echo "Scan Report Creted Successfully, " 
@@ -38,8 +38,10 @@ pipeline {
                },
                sast: {
                   sh '''
-                     docker run --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/analyzers/nodejs-scan-sast /app/bin/run /code
-
+                     // docker run --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/analyzers/nodejs-scan-sast /app/bin/run /code
+                     docker run -v "$PWD":/src -v /var/run/docker.sock:/var/run/docker.sock returntocorp/semgrep-agent:v1 semgrep-agent --config auto
+                     docker tag returntocorp/semgrep-agent:v1 "${DOCKER_REGISTRY}/devops/semgrep-agent:v1"
+                     docker push ""${DOCKER_REGISTRY}/devops/semgrep-agent:v1"
 
                      echo "Scan Report Created Successfully, " 
                      // Scan Id:" $SCAN_ID
