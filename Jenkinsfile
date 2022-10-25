@@ -22,51 +22,25 @@ pipeline {
             '''   
          }
       }
-      stage('Code Security Dependency Check') {
+      stage('Code Security') {
          steps {
             parallel(
-               backend: {
+               dependency: {
                   sh '''
-                     docker run --env SECURE_LOG_LEVEL=${SECURE_LOG_LEVEL} -v "$PWD"/backend:/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
+                     docker run --env SECURE_LOG_LEVEL=${SECURE_LOG_LEVEL} -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
 
 
                      echo "Scan Report Creted Successfully, " 
                      // Scan Id:" $SCAN_ID
                   '''
                },
-               frontend: {
+               sast: {
                   sh '''
-                     docker run --env SECURE_LOG_LEVEL=${SECURE_LOG_LEVEL} -v "$PWD"/frontend:/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
+                     docker run --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/sast:latest /app/bin/run /code
 
 
                      echo "Scan Report Creted Successfully, " 
                      // Scan Id:" $SCAN_ID
-                  '''
-               }
-            )
-         }
-      }
-      stage('Code Security SAST') {
-         steps {
-            parallel(
-               backend: {
-                  // echo 'SAST'
-                  sh '''
-                    docker run --volume "$PWD"/backend:/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/sast:latest /app/bin/run /code
-
-
-                     echo "Scan Report Created Successfully"
-                     // , Scan Id:" $SCAN_ID
-                  '''
-               },
-               frontend: {
-                  // echo 'SAST'
-                  sh '''
-                    docker run --volume "$PWD"/backend:/code --volume /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/sast:latest /app/bin/run /code
-
-
-                     echo "Scan Report Created Successfully"
-                     // , Scan Id:" $SCAN_ID
                   '''
                }
             )
