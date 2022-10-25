@@ -45,6 +45,8 @@ export DB_HOST='{{ db_host }}'
 # Djnago debug false
 export DJANGO_DEBUG=0
 
+# makemigrations 
+'{{ app_dir }}'/venv/bin/python '{{ app_dir }}'/manage.py makemigrations
 # migrate database
 '{{ app_dir }}'/venv/bin/python '{{ app_dir }}'/manage.py migrate
 
