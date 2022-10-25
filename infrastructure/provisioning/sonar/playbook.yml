@@ -1,0 +1,8 @@
+---
+- name: Install SonarQube
+  gather_facts: True
+  hosts: all
+
+  roles:
+  - role: infrastructure/provisioning/roles/ansible-role-sonarqube
+    become: yes
