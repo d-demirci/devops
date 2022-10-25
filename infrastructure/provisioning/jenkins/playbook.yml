@@ -19,6 +19,7 @@
       with_items:
           - jq
           - apt-transport-https
+          - git
       become: yes      
 
     - import_tasks: jenkins.yml
