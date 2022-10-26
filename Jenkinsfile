@@ -30,18 +30,18 @@ pipeline {
                      rm "$PWD"/frontend/package-lock.json
                      
                      docker run --rm -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
+                     docker run --rm -v "$PWD":/code registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest /code
 
-
-                     echo "Scan Report Creted Successfully, " 
-                     // Scan Id:" $SCAN_ID
+                     echo "Scan Report Creted Successfully" 
+                     
                   '''
                },
                sast: {
                   sh '''
                      docker run --rm -v "$PWD":/src returntocorp/semgrep --config auto
 
-                     echo "Scan Report Created Successfully, " 
-                     // Scan Id:" $SCAN_ID
+                     echo "Scan Report Created Successfully" 
+                     
                   '''
                }
             )
