@@ -64,3 +64,17 @@ echo '[INSTALL] Migrating Database'
 python manage.py makemigrations
 python manage.py migrate
 echo '[INSTALL] Installation Complete'
+
+echo '================================================================='
+echo 'User Creating'
+source venv/bin/activate
+echo 'Apply Fixtures'
+python manage.py loaddata fixtures/default_user_roles.json
+python manage.py loaddata fixtures/default_organization.json
+echo "from user_management.models import UserProfile; UserProfile.objects.create_superuser(name='${NAME}', email='${EMAIL}', password='${PASSWORD}', role=1, organization=1)" | python manage.py shell
+echo '================================================================='
+echo 'User Created'
+echo 'User Name :' ${NAME}
+echo 'User Email': ${EMAIL}
+echo 'Role : Admin'
+echo 'Done !'
