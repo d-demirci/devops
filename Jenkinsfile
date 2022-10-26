@@ -38,14 +38,9 @@ pipeline {
                   '''
                },
                sast: {
-                  sh '''
-                     // docker run -v $(pwd):/src returntocorp/semgrep semgrep --config auto
-                     pip3 install semgrep
-                     semgrep ci
-
-                     echo "Scan Report Created Successfully" 
-                     
-                  '''
+                  sh 'pip3 install semgrep'
+                  sh 'semgrep ci'
+                  
                }
             )
          }
