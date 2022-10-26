@@ -45,7 +45,9 @@ pipeline {
                // }
                sast: {
                   sh '''
-                     docker run --rm -v /var/lib/jenkins/workspace/DevOpsPipeline:/src returntocorp/semgrep --config auto --json
+                     mkdir semgrep
+                     chmod 777 semgrep
+                     docker run --rm -v "$PWD"/semgrep:/semgrep -v "$PWD":/src returntocorp/semgrep --config auto --output /semgrep/semgrep_result.json --json
                   '''
                }
             )
