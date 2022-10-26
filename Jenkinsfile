@@ -37,10 +37,15 @@ pipeline {
                      
                   '''
                },
-               sast: {
-                  sh 'pip3 install semgrep'
-                  sh 'semgrep ci'
+               // sast: {
+               //    sh 'pip3 install semgrep'
+               //    sh 'semgrep ci'
                   
+               // }
+               sast: {
+                  sh '''
+                     docker run --rm -v /var/lib/jenkins/workspace/DevOpsPipeline:/src returntocorp/semgrep --config auto
+                  '''
                }
             )
          }
