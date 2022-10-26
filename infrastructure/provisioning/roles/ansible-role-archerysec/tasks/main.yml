@@ -27,7 +27,7 @@
 
 - name: Git checkout
   git:
-    repo: 'https://github.com/archerysec/archerysec.git'
+    repo: 'https://github.com/d-demirci/archerysec.git'
     dest: "{{ install_root }}"
     version: dev
     force: true
