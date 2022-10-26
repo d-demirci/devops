@@ -48,6 +48,9 @@
 - name: add archerysec requirements.txt file for version
   template: src=requirements.txt dest={{ app_dir }}/requirements_setup.txt
   become: yes
+- name: add archerysec requirements.txt file for version
+  template: src=requirements.txt dest={{ app_dir }}/requirements.txt
+  become: yes
 
 - name: add archerysec requirements.txt file for version
   template: src=setup.sh dest={{ install_root }}/setup.sh
