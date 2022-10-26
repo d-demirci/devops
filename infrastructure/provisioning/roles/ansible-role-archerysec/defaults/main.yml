@@ -34,7 +34,7 @@ wsgi_module: archerysec.wsgi
 pythonpath: "{{ install_root }}"
 
 # the git repository URL for the project
-project_repo: https://github.com/archerysec/archerysec.git
+project_repo: https://github.com/d-demirci/archerysec.git
 
 # Application Dependencies Setup
 venv_dir: "{{ install_root }}/venv"

@@ -43,7 +43,7 @@ export DB_PASSWORD='{{ db_password }}'
 export DB_HOST='{{ db_host }}'
 
 # Djnago debug false
-export DJANGO_DEBUG=0
+export DJANGO_DEBUG=1
 
 # makemigrations 
 '{{ app_dir }}'/venv/bin/python '{{ app_dir }}'/manage.py makemigrations
