@@ -29,10 +29,9 @@ pipeline {
             parallel(
                dependency: {
                   sh '''
-                     rm "$PWD"/frontend/package-lock.json
                      
-                     // docker run --rm -v "$PWD":/code -v /var/run/docker.sock:/var/run/docker.sock registry.gitlab.com/gitlab-org/security-products/dependency-scanning:latest /code
-                     docker run --rm -v "$PWD":/code registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest /code
+                     docker run --rm -v "$PWD":/code -v "$PWD"/report:/report  registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest -f JSON  -s /code/frontend -o /report/frontend_dependency_check_result.json  --project devops
+                     docker run --rm -v "$PWD":/code -v "$PWD"/report:/report  registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest -f JSON  -s /code/backend -o /report/backend_dependency_check_result.json  --project devops
 
                      echo "Scan Report Creted Successfully" 
                      
