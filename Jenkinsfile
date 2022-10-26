@@ -12,7 +12,7 @@ pipeline {
      MYSQL_DB_USER="test"
      MYSQL_DB_ROOT="tooor"
      SEMGREP_RULES = "p/default" 
-     SEMGREP_BRANCH = "${GIT_BRANCH}
+     SEMGREP_BRANCH = "${GIT_BRANCH}"
    }
    stages {
       stage('Build') {
@@ -40,7 +40,7 @@ pipeline {
                },
                sast: {
                   sh '''
-                     // docker run --rm -v "$PWD":/src returntocorp/semgrep --config auto
+                     // docker run -v $(pwd):/src returntocorp/semgrep semgrep --config auto
                      pip3 install semgrep
                      semgrep ci
 
