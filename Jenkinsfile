@@ -29,7 +29,7 @@ pipeline {
             parallel(
                dependency: {
                   sh '''
-                     
+                     mkdir report
                      docker run --rm -v "$PWD":/code -v "$PWD"/report:/report  registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest -f JSON  -s /code/frontend -o /report/frontend_dependency_check_result.json  --project devops
                      docker run --rm -v "$PWD":/code -v "$PWD"/report:/report  registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest -f JSON  -s /code/backend -o /report/backend_dependency_check_result.json  --project devops
 
